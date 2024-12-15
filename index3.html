@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memories</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <header>
+    <h1>Our Memories</h1>
+  </header>
+  <main>
+    <section class="memories">
+      <a href="index2.html" class="btn back-btn">Back to Main Page</a>
+      <div class="gallery">
+        <img src="1.jpg" alt="Memory 1">
+        <img src="2.jpg" alt="Memory 2">
+        <img src="3.jpg" alt="Memory 3">
+        <img src="4.jpg" alt="Memory 4">
+        <img src="5.jpg" alt="Memory 5">
+        <img src="6.jpg" alt="Memory 6">
+        <img src="7.jpg" alt="Memory 7">
+        <img src="8.jpg" alt="Memory 8">
+        <img src="9.jpg" alt="Memory 9">
+        <img src="10.jpg" alt="Memory 10">
+        <img src="11.jpg" alt="Memory 11">
+        <img src="12.jpg" alt="Memory 12">
+        <img src="13.jpg" alt="Memory 13">
+        <img src="14.jpg" alt="Memory 14">
+        <img src="15.jpg" alt="Memory 15">
+        <img src="16.jpg" alt="Memory 16">
+        <img src="17.jpg" alt="Memory 17">
+        <img src="18.jpg" alt="Memory 18">
+        <img src="19.jpg" alt="Memory 19">
+        <img src="20.jpg" alt="Memory 20">
+        <img src="21.jpg" alt="Memory 21">
+        <img src="22.jpg" alt="Memory 22">
+        <img src="23.jpg" alt="Memory 23">
+        <!-- Add more images as needed -->
+      </div>
+
+      <!-- Fullscreen Overlay -->
+      <div class="fullscreen-overlay" id="fullscreenOverlay">
+        <button class="nav-btn left" id="prevBtn">&#10094;</button>
+        <img src="" alt="Full Image" id="fullImage">
+        <button class="nav-btn right" id="nextBtn">&#10095;</button>
+        <button class="back-btn" id="closeBtn">Back</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const images = document.querySelectorAll('.gallery img');
+    const overlay = document.getElementById('fullscreenOverlay');
+    const fullImage = document.getElementById('fullImage');
+    const closeBtn = document.getElementById('closeBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentIndex = 0;
+
+    // Function to open image in fullscreen
+    function openFullScreen(index) {
+      currentIndex = index;
+      fullImage.src = images[currentIndex].src;
+      overlay.style.display = 'flex';
+    }
+
+    // Function to close fullscreen
+    function closeFullScreen() {
+      overlay.style.display = 'none';
+    }
+
+    // Show next image
+    function showNextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      fullImage.src = images[currentIndex].src;
+    }
+
+    // Show previous image
+    function showPrevImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      fullImage.src = images[currentIndex].src;
+    }
+
+    // Add event listeners to gallery images
+    images.forEach((img, index) => {
+      img.addEventListener('click', () => openFullScreen(index));
+    });
+
+    // Add event listeners for fullscreen navigation
+    closeBtn.addEventListener('click', closeFullScreen);
+    nextBtn.addEventListener('click', showNextImage);
+    prevBtn.addEventListener('click', showPrevImage);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (overlay.style.display === 'flex') {
+        if (e.key === 'ArrowRight') {
+          showNextImage();
+        } else if (e.key === 'ArrowLeft') {
+          showPrevImage();
+        } else if (e.key === 'Escape') {
+          closeFullScreen();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
